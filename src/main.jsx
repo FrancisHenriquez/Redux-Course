@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import App from './App'
 import './index.css'
-import { store } from './store/store'
+import { PokemonApp } from './store/PokemonApp'
+import { store } from './store/slices/todos/store'
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store = { store }>
-    <App />
+    {/* <App /> */}
+    <PokemonApp />
     </Provider>
    
   </React.StrictMode>
