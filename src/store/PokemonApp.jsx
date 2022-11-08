@@ -1,35 +1,39 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { getPokemons } from './pokemon/thunks'
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPokemons } from './pokemon/thunks';
+
 
 export const PokemonApp = () => {
-  const dispatch = useDispatch()
 
-  useEffect( () => {
-    dispatch( getPokemons())
-  })
-
-useEffect(() => {
+  const dispatch = useDispatch();
+  const { isLoading, pokemons = [], page } = useSelector( state => state.pokemons );
 
 
-  return () => {
-   
-  }
-}, [])
-
-
-
+  useEffect(() => {
+    dispatch( getPokemons() );    
+  }, [])
+  
 
   return (
-   <>
-   <h1>PokemonApp</h1>
-   <hr />
-   <ul>
-        <li>Hola</li>
-        <li>Hola</li>
-   </ul>
-   
-   </>
+    <>
+        <h1>PokemonApp</h1>
+        <hr />
+        <span>Loading: { isLoading ? 'True': 'False' }</span>
+
+        <ul>
+          {
+            pokemons.map( ({ name }) => (
+              <li key={ name }>{ name }</li>
+            ))
+          }
+        </ul>
+
+        <button
+          disabled={ isLoading }
+          onClick={ () => dispatch( getPokemons(page) ) }
+        >
+          Next
+        </button>
+    </>
   )
 }
